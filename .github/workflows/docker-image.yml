@@ -1,0 +1,34 @@
+name: Examen 1
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  decir-hola:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    environment: produccion
+    steps:
+      - name: Mostrar mensaje
+        run: echo "Hola mundo"
+
+      - name: Enviar petición
+        run: |
+          curl -X POST 'https://webhook.site/892f2749-aba3-44c8-af63-04640edf7a85' \
+          -H 'content-type: application/json' \
+          -d '{"nombre": "Freddy"}'
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Logearnos en GHCR
+        run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u freyerffc --password-stdin
+
+      - name: Crear imagen
+        run: docker build . -t ghcr.io/freyerffc/express-image
+
+      - name: Desplegar
+        run: docker push ghcr.io/freyerffc/express-image
