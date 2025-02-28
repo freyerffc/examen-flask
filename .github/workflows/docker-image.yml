@@ -25,7 +25,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Logearnos en GHCR
-        run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u freyerffc --password-stdin
+        run: echo "${{ secrets.EXAMEN }}" | docker login ghcr.io -u freyerffc --password-stdin
 
       - name: Crear imagen
         run: docker build . -t ghcr.io/freyerffc/express-image
