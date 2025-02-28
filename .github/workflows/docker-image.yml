@@ -28,7 +28,7 @@ jobs:
         run: echo "${{ secrets.EXAMEN }}" | docker login ghcr.io -u freyerffc --password-stdin
 
       - name: Crear imagen
-        run: docker build . -t ghcr.io/freyerffc/express-image
+        run: docker build . -t ghcr.io/freyerffc/flask-image
 
       - name: Desplegar
-        run: docker push ghcr.io/freyerffc/express-image
+        run: docker push ghcr.io/freyerffc/flask-image
